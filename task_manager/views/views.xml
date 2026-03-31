@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- List View -->
+    <record id="task_manager_list_view" model="ir.ui.view">
+        <field name="name">task.manager.list</field>
+        <field name="model">task.manager</field>
+        <field name="arch" type="xml">
+            <tree string="Tasks">
+                <field name="name"/>
+                <field name="status"/>
+                <field name="deadline"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="task_manager_form_view" model="ir.ui.view">
+        <field name="name">task.manager.form</field>
+        <field name="model">task.manager</field>
+        <field name="arch" type="xml">
+            <form string="Task">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="status"/>
+                        <field name="deadline"/>
+                    </group>
+                    <group>
+                        <field name="description"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="task_manager_action" model="ir.actions.act_window">
+        <field name="name">Tasks</field>
+        <field name="res_model">task.manager</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Menu -->
+    <menuitem id="task_manager_menu_root"
+        name="Task Manager"
+        action="task_manager_action"
+        sequence="10"/>
+
+</odoo>
