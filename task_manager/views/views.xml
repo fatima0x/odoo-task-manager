@@ -8,6 +8,9 @@
         <field name="arch" type="xml">
             <tree string="Tasks">
                 <field name="name"/>
+                <field name="priority"/>
+                <field name="assigned_to"/>
+                <field name="customer"/>
                 <field name="status"/>
                 <field name="deadline"/>
             </tree>
@@ -23,6 +26,9 @@
                 <sheet>
                     <group>
                         <field name="name"/>
+                        <field name="priority"/>
+                        <field name="assigned_to"/>
+                        <field name="customer"/>
                         <field name="status"/>
                         <field name="deadline"/>
                     </group>
@@ -30,7 +36,51 @@
                         <field name="description"/>
                     </group>
                 </sheet>
+                <div class="o_attachment_preview"/>
+                <div class="o_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
             </form>
+        </field>
+    </record>
+
+    <!-- Kanban View -->
+    <record id="task_manager_kanban_view" model="ir.ui.view">
+        <field name="name">task.manager.kanban</field>
+        <field name="model">task.manager</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="status">
+                <field name="name"/>
+                <field name="priority"/>
+                <field name="assigned_to"/>
+                <field name="status"/>
+                <field name="deadline"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_card oe_kanban_global_click">
+                            <div class="oe_kanban_content">
+                                <strong>
+                                    <field name="name"/>
+                                </strong>
+                                <div>
+                                    Priority: <field name="priority"/>
+                                </div>
+                                <div>
+                                    Assigned: <field name="assigned_to"/>
+                                </div>
+                                <div>
+                                    Customer: <field name="customer"/>
+                                </div>
+                                <div>
+                                    Deadline: <field name="deadline"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
         </field>
     </record>
 
@@ -38,7 +88,7 @@
     <record id="task_manager_action" model="ir.actions.act_window">
         <field name="name">Tasks</field>
         <field name="res_model">task.manager</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,kanban,form</field>
     </record>
 
     <!-- Menu -->
